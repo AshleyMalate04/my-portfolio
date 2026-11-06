@@ -1,0 +1,556 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/dm-sans';
+@import '@fontsource-variable/jetbrains-mono';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/*
+ * Tokens de design do ASHLEY PORTFOLIO.
+ * Paleta de marca (fixa) + tokens semânticos que mudam com o tema.
+ *
+ * Contraste (WCAG 2.2 AA):
+ * - coral #FF5A36 sobre marfim ≈ 2,8:1 → NÃO usar para texto; usar como fundo de acções com texto ameixa (≈ 5,6:1).
+ * - coral-ink sobre marfim ≈ 5,2:1; no escuro usa-se um coral mais claro para ligações.
+ * - marfim sobre ameixa #241521 ≈ 15:1.
+ */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  --surface: #f7f1e8;
+  --surface-raised: #fffaf2;
+  --surface-sunken: #efe6d8;
+  --surface-alt: #ead9ce;
+  --ink: #241521;
+  --ink-muted: #5e535b;
+  --ink-inverse: #f7f1e8;
+  --accent: #ff5a36;
+  --accent-ink: #b8321a;
+  --highlight: #f4d96b;
+  --support: #b7a0d9;
+  --line: #e3d9cc;
+  --focus: #b8321a;
+  --danger: #a4161a;
+  --success: #2f6b3a;
+  --warning: #8a6a12;
+  --band: #241521;
+  --band-raised: #392438;
+  --band-ink: #f7f1e8;
+  --band-muted: rgb(247 241 232 / 0.7);
+  --band-line: rgb(247 241 232 / 0.16);
+  --overlay: rgb(36 21 33 / 0.5);
+  --menu: #fffaf2;
+  --nav: #241521;
+  --nav-ink: #f7f1e8;
+  --nav-muted: rgb(247 241 232 / 0.55);
+  --nav-hover: rgb(247 241 232 / 0.1);
+  --nav-active: #f7f1e8;
+  --nav-active-ink: #241521;
+  --spotlight: rgb(255 90 54 / 0.09);
+  --grid-line: rgb(36 21 33 / 0.08);
+  --grid-line-band: rgb(247 241 232 / 0.09);
+  --shadow-card-value: 0 1px 0 rgb(36 21 33 / 0.06), 0 12px 32px -12px rgb(36 21 33 / 0.18);
+  --shadow-menu-value: 0 8px 32px -12px rgb(36 21 33 / 0.28), 0 1px 0 rgb(36 21 33 / 0.06);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --surface: #241521;
+  --surface-raised: #3d2740;
+  --surface-sunken: #1a1018;
+  --surface-alt: #392438;
+  --ink: #f7f1e8;
+  --ink-muted: #d2c2ce;
+  --ink-inverse: #241521;
+  --accent: #ff6a48;
+  --accent-ink: #ffb09a;
+  --highlight: #f4d96b;
+  --support: #c4b0e0;
+  --line: rgb(247 241 232 / 0.16);
+  --focus: #f4d96b;
+  --danger: #ff8a90;
+  --success: #5ee089;
+  --warning: #f4d96b;
+  --band: #321e31;
+  --band-raised: #4a3050;
+  --band-ink: #f7f1e8;
+  --band-muted: rgb(247 241 232 / 0.72);
+  --band-line: rgb(247 241 232 / 0.16);
+  --overlay: rgb(18 10 16 / 0.7);
+  --menu: #3d2740;
+  --nav: #1a1018;
+  --nav-ink: #f7f1e8;
+  --nav-muted: rgb(247 241 232 / 0.58);
+  --nav-hover: rgb(247 241 232 / 0.1);
+  --nav-active: #f7f1e8;
+  --nav-active-ink: #241521;
+  --spotlight: rgb(183 160 217 / 0.1);
+  --grid-line: rgb(247 241 232 / 0.08);
+  --grid-line-band: rgb(247 241 232 / 0.1);
+  --shadow-card-value: 0 1px 0 rgb(247 241 232 / 0.08), 0 20px 44px -18px rgb(0 0 0 / 0.55);
+  --shadow-menu-value: 0 12px 40px -10px rgb(0 0 0 / 0.55), 0 1px 0 rgb(247 241 232 / 0.08);
+}
+
+@theme {
+  /* Paleta de marca — não muda com o tema. */
+  --color-plum-950: #241521;
+  --color-plum-800: #392438;
+  --color-coral-500: #ff5a36;
+  --color-coral-700: #b8321a;
+  --color-butter-300: #f4d96b;
+  --color-ivory-50: #f7f1e8;
+  --color-lavender-300: #b7a0d9;
+  --color-mauve-500: #81777f;
+
+  /* Semântica — aponta para variáveis que o tema troca. */
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-alt: var(--surface-alt);
+  --color-surface-inverse: var(--band);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-highlight: var(--highlight);
+  --color-support: var(--support);
+  --color-line: var(--line);
+  --color-focus: var(--focus);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-band: var(--band);
+  --color-band-raised: var(--band-raised);
+  --color-band-ink: var(--band-ink);
+  --color-band-muted: var(--band-muted);
+  --color-band-line: var(--band-line);
+  --color-overlay: var(--overlay);
+  --color-menu: var(--menu);
+  --color-nav: var(--nav);
+  --color-nav-ink: var(--nav-ink);
+  --color-nav-muted: var(--nav-muted);
+  --color-nav-hover: var(--nav-hover);
+  --color-nav-active: var(--nav-active);
+  --color-nav-active-ink: var(--nav-active-ink);
+
+  /* Tipografia */
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'DM Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Layout */
+  --container-content: 88rem;
+  --container-prose: 42rem;
+
+  /* Raios e sombras */
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+  --shadow-card: var(--shadow-card-value);
+  --shadow-menu: var(--shadow-menu-value);
+
+  /* Movimento */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-surface text-ink font-sans antialiased;
+    min-height: 100dvh;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html,
+    body {
+      transition:
+        background-color 280ms var(--ease-out-expo),
+        color 280ms var(--ease-out-expo);
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-highlight);
+    color: #241521;
+  }
+}
+
+/* Campo flutuante — orbes discretos, em movimento contínuo. */
+@media (prefers-reduced-motion: no-preference) {
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.28;
+    will-change: transform;
+  }
+  .orb-a {
+    top: 6%;
+    right: 8%;
+    width: 14rem;
+    height: 14rem;
+    animation: float-a 14s ease-in-out infinite alternate;
+  }
+  .orb-b {
+    top: 48%;
+    left: -6%;
+    width: 11rem;
+    height: 11rem;
+    animation: float-b 18s ease-in-out infinite alternate;
+  }
+  .orb-c {
+    bottom: 4%;
+    right: 30%;
+    width: 7rem;
+    height: 7rem;
+    animation: float-c 11s ease-in-out infinite alternate;
+  }
+  .orb-quiet {
+    top: 12%;
+    right: 6%;
+    width: 9rem;
+    height: 9rem;
+    opacity: 0.2;
+    animation: float-c 16s ease-in-out infinite alternate;
+  }
+
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+    opacity: 0.55;
+    animation: spin-slow 32s linear infinite;
+  }
+  .ring-a {
+    top: 16%;
+    left: 36%;
+    width: 6rem;
+    height: 6rem;
+  }
+  .ring-b {
+    bottom: 16%;
+    left: 10%;
+    width: 3.5rem;
+    height: 3.5rem;
+    animation-duration: 24s;
+    animation-direction: reverse;
+    border-color: color-mix(in srgb, var(--support) 28%, transparent);
+  }
+
+  .glyph {
+    position: absolute;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: color-mix(in srgb, var(--ink) 14%, transparent);
+    animation: float-b 10s ease-in-out infinite alternate;
+  }
+  .glyph-a {
+    top: 26%;
+    right: 10%;
+  }
+  .glyph-b {
+    bottom: 30%;
+    left: 7%;
+    animation-duration: 13s;
+  }
+
+  .dot {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.28;
+    animation: pulse-dot 4s ease-in-out infinite;
+  }
+  .dot-a {
+    top: 22%;
+    left: 18%;
+  }
+  .dot-b {
+    top: 58%;
+    right: 22%;
+    animation-delay: 1.2s;
+    background: var(--highlight);
+  }
+  .dot-c {
+    bottom: 16%;
+    left: 46%;
+    animation-delay: 2.2s;
+    background: var(--support);
+  }
+  .dot-quiet {
+    top: 36%;
+    left: 12%;
+  }
+
+  @keyframes float-a {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-42px, 48px, 0);
+    }
+  }
+  @keyframes float-b {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(38px, -44px, 0);
+    }
+  }
+  @keyframes float-c {
+    from {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    to {
+      transform: translate3d(28px, 36px, 0) rotate(14deg);
+    }
+  }
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 0.1;
+      transform: scale(0.75);
+    }
+    50% {
+      opacity: 0.45;
+      transform: scale(1.15);
+    }
+  }
+
+  .typewriter-caret {
+    animation: caret-blink 1s steps(1) infinite;
+  }
+  @keyframes caret-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+.link-underline {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 220ms var(--ease-out-expo);
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Retrato angular do hero: a moldura fica independente da imagem para poder
+   deslizar subtilmente sem cortar a fotografia. */
+.portrait-shape {
+  clip-path: polygon(50% 0%, 100% 34%, 84% 100%, 16% 94%, 0% 34%);
+}
+
+/* Em ecrãs estreitos, o retrato deixa de disputar espaço com o conteúdo e
+   passa a ser uma textura de fundo. O degradê garante contraste no texto. */
+.hero-mobile-portrait {
+  background: var(--surface);
+}
+
+.hero-mobile-portrait-overlay {
+  background: linear-gradient(180deg, rgb(18 10 16 / 0.38) 0%, rgb(18 10 16 / 0.58) 52%, rgb(18 10 16 / 0.82) 100%);
+}
+
+@media (max-width: 1023px) {
+  .hero-content {
+    color: var(--color-ivory-50);
+  }
+
+  .hero-content .text-ink,
+  .hero-content .text-ink-muted {
+    color: var(--color-ivory-50);
+  }
+
+  .hero-content .text-ink-muted {
+    opacity: 0.82;
+  }
+
+  .hero-content .text-accent-ink {
+    color: var(--color-butter-300);
+  }
+
+  .hero-content .border-ink\/20 {
+    border-color: rgb(255 250 242 / 0.62);
+  }
+
+  .hero-content .hover\:border-ink:hover {
+    border-color: var(--color-ivory-50);
+  }
+
+  .hero-content .hover\:bg-ink:hover {
+    background-color: rgb(255 250 242 / 0.16);
+  }
+}
+
+.portrait-frame-line {
+  fill: none;
+  stroke: var(--color-highlight);
+  stroke-linecap: square;
+  stroke-width: 1.15;
+  vector-effect: non-scaling-stroke;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .portrait-frame-line {
+    stroke-dasharray: 19 7;
+    animation: portrait-frame-dash 7s linear infinite;
+  }
+
+  .portrait-frame-line-b {
+    animation-delay: -2.4s;
+    animation-direction: reverse;
+  }
+
+  .portrait-frame-line-c {
+    animation-delay: -4.8s;
+  }
+
+  .portrait-frame {
+    animation: portrait-frame-drift 5s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes portrait-frame-dash {
+  to {
+    stroke-dashoffset: -52;
+  }
+}
+
+@keyframes portrait-frame-drift {
+  to {
+    transform: translate3d(0.35rem, -0.2rem, 0) rotate(0.45deg);
+  }
+}
+
+@media (max-width: 1023px) {
+  .orb-a,
+  .orb-b {
+    filter: blur(48px);
+    opacity: 0.22;
+  }
+  .ring,
+  .glyph,
+  .dot {
+    display: none;
+  }
+}
+
+/* Respeita quem prefere menos movimento: animações e transições ficam praticamente instantâneas. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
+/* Faixa de tecnologias: duas cópias da lista em fila, deslocadas meio caminho, para o ciclo ser contínuo. */
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Bolhas e partículas: sobem dentro da secção (unidades cqh = altura do contentor). */
+.bubbles {
+  container-type: size;
+}
+.bubble {
+  position: absolute;
+  bottom: -120px;
+  border-radius: 999px;
+  opacity: 0;
+  background: radial-gradient(
+    circle at 32% 30%,
+    color-mix(in srgb, var(--bubble-color) 70%, white 30%) 0%,
+    color-mix(in srgb, var(--bubble-color) 45%, transparent) 45%,
+    color-mix(in srgb, var(--bubble-color) 12%, transparent) 72%
+  );
+  animation-name: bubble-rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+.bubble-accent {
+  --bubble-color: var(--accent);
+}
+.bubble-support {
+  --bubble-color: var(--support);
+}
+.bubble-highlight {
+  --bubble-color: var(--highlight);
+}
+.bubble-ring {
+  background: transparent;
+  border: 1.5px solid color-mix(in srgb, var(--bubble-color) 75%, transparent);
+}
+@keyframes bubble-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--bubble-opacity);
+  }
+  50% {
+    transform: translate3d(var(--bubble-sway), calc(-50cqh - 60px), 0) scale(1);
+  }
+  86% {
+    opacity: var(--bubble-opacity);
+  }
+  100% {
+    transform: translate3d(0, calc(-100cqh - 160px), 0) scale(1.06);
+    opacity: 0;
+  }
+}

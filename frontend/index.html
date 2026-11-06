@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-MZ">
+  <head>
+    <script>
+      ;(function () {
+        try {
+          var key = 'ashley-appearance'
+          var stored = localStorage.getItem(key)
+          var dark =
+            stored === 'dark' || (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          var theme = dark ? 'dark' : 'light'
+          document.documentElement.dataset.theme = theme
+          document.documentElement.style.colorScheme = theme
+          document.documentElement.classList.toggle('dark', dark)
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light'
+        }
+      })()
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ashley da Amena Mario Malate — Desenvolvedora de software</title>
+    <meta
+      name="description"
+      content="Portfólio de Ashley da Amena Mario Malate, estudante de Informática e desenvolvedora de aplicações web e móveis em Maputo, Moçambique."
+    />
+    <!-- Valores por omissão para pré-visualizações de ligações (redes sociais não executam JavaScript).
+         Depois do carregamento, useSeo actualiza estas mesmas etiquetas por página. -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Ashley da Amena Mario Malate" />
+    <meta property="og:title" content="Ashley da Amena Mario Malate — Desenvolvedora de software" />
+    <meta
+      property="og:description"
+      content="Portfólio de Ashley da Amena Mario Malate, estudante de Informática e desenvolvedora de aplicações web e móveis em Maputo, Moçambique."
+    />
+    <meta property="og:locale" content="pt_MZ" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#F7F1E8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <noscript>Este site precisa de JavaScript activo para apresentar o conteúdo.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
